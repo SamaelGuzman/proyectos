@@ -1,0 +1,174 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <iostream>
+#include<cmath>
+#define Pi 3.14159265
+using namespace std;
+
+
+class SexagRad //clase SexagRad
+{
+private:
+ double radianes;
+ double grados;
+ double minutos;
+ double segundos;
+
+public:
+ SexagRad (double g, double m, double s){
+  grados=g;
+  minutos=m;
+  segundos=s;
+  }
+ double gra2sexa(){
+  minutos = minutos + segundos/60;
+  grados = grados + minutos/60;
+  radianes = grados*Pi/180;
+  return radianes;
+  }
+};
+class RadSexag1 //clase RadSexag1
+{
+private:
+ double radianes;
+ double grados;
+ double minutos;
+ double segundos;
+ 
+public:
+ RadSexag1 (double r){
+  radianes=r;
+  }
+ double rad2gra1(){
+  grados=radianes*180/Pi;
+  return floor(grados);
+  }
+ double rad2gra2(){
+  grados=radianes*180/Pi;
+  minutos=(grados-rad2gra1())*60;
+  return floor(minutos);
+  }
+ double rad2gra3(){
+  grados=radianes*180/Pi;
+  minutos=(grados-rad2gra1())*60;
+  segundos = (minutos-rad2gra2())*60;
+  return floor(segundos);
+  }
+};
+float potencia(float base, int exponente) {
+    float resultado = 1;
+    int i;
+    for (i = 0; i < exponente; ++i) {
+        resultado *= base;
+    }
+    return resultado;
+}
+
+
+int main() // inicio del programa
+ {
+    float x, y, resultado;  //declaracion de varibles
+    char operacion;
+    int trig,valido = 1;
+std::cout << "TECLEE SOLO 1 NUMERO DE LA SIGUIENTE LISTA DE OPCIONES\n1.SUMA \n2.RESTA\n3.MULTIPLICACION\n4.DIVISION\n5.POTENCIA \n6.PORCENTAJE \n7.CUBO \n8.RAIZ CUBICA\n9.CONVERCION RAD A DEG \n";
+std::cout.flush();
+    
+    scanf("%c", &operacion);
+   
+
+    switch (operacion) { // SWITCH CASE CON LISTA DE OPERACIONES
+        case '1': //SUMA
+         printf("Ingrese el valor 1: ");
+          scanf("%f", &x);
+          printf("Ingrese el valor 2: ");
+          scanf("%f", &y);
+            resultado = x + y;
+            break;
+        case '2': //RESTA
+         printf("Ingrese el valor 1: ");
+           scanf("%f", &x);
+           printf("Ingrese el valor 2: ");
+           scanf("%f", &y);
+            resultado = x - y;
+            break;
+        case '3': //MULTIPLICACION
+         printf("Ingrese el valor 1: ");
+           scanf("%f", &x);
+           printf("Ingrese el valor 2: ");
+           scanf("%f", &y);
+            resultado = x * y;
+        break;
+        case '4': //DIVISION
+         printf("Ingrese el valor 1: ");
+           scanf("%f", &x);
+           printf("Ingrese el valor 2: ");
+           scanf("%f", &y);
+            resultado = x / y;
+            break;
+        case '5': //POTENCIA
+         printf("Ingrese el valor 1: ");
+           scanf("%f", &x);
+           printf("Ingrese el valor 2: ");
+              scanf("%f", &y);
+             resultado = potencia(x, (int) y);
+            break;
+        case '6': //PORCENTAJE
+         printf("Ingrese el valor 1: ");
+            scanf("%f", &x);
+             printf("Ingrese el valor 2: ");
+             scanf("%f", &y);
+             resultado = x*(((float)y) / ((float)100)); 
+            break;
+            case '7' : //CUBO
+             printf("Ingrese el valor 1: ");
+            scanf("%f", &x);
+            resultado = pow(x,3);
+            break;
+            case '8': //RAIZ CUBICA
+             printf("Ingrese el valor : ");
+             scanf("%f", &x);
+             resultado = cbrt(x);
+            break;
+            case '9': //CONVERSION DE Radianes A Grados
+            int opcion;
+double g,m,s,r;
+double rads;
+double grados, minutos, segundos;
+std::cout<<"1. Grados->Radianes"<<endl;
+std::cout<<"2. Radianes ->Grados"<<endl;
+std::cout<<"Escribe una de las 2 OPCIONES de arriba"<<endl;
+std::cin>>opcion;
+if(opcion==1) {
+ std::cout<<"Dame los grados: ";cin>>g;
+ std::cout<<"Dame los minutos: ";cin>>m;
+ std::cout<<"Dame los segundos: ";cin>>s;
+ SexagRad ang(g,m,s);
+ rads=ang.gra2sexa();
+ cout<<"El ángulo en radianes vale "<<rads<<endl;
+ }
+else {
+ cout<<"Dame el ángulo en radianes: "; cin>>r;
+ RadSexag1 ang1(r);
+ grados=ang1.rad2gra1();
+ minutos=ang1.rad2gra2();
+ segundos=ang1.rad2gra3();
+ cout<<r<<" radianes son "<<grados<<" grados y ";
+ cout<<minutos<<" minutos y ";
+ cout<<segundos<<" segundos"<<endl;
+ }
+
+            break;
+           
+        default:
+            valido = 0;
+    }
+
+    if (valido) // validacion
+        printf("El resultado es %f\n", resultado);
+        
+    else
+        printf("Operacion invalida VERIFICA SI ESCRIBISTE SOLO EL SIMBOLO EN LA PRIMER INSTRUCCION\n");
+
+    return 0;
+}
